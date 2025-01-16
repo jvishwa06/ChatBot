@@ -1,0 +1,180 @@
+﻿@inherits LayoutComponentBase
+
+<div class="main-layout">
+    <!-- Sidebar -->
+    <div class="sidebar @(isSidebarOpen ? "open" : "closed")">
+        <ul class="chat-list">
+            <li class="new-chat" @onclick="CreateNewChat">New Chat</li>
+            @foreach (var chat in chatSessions)
+            {
+                <li @onclick="() => LoadChat(chat)" class="chat-item">
+                    @chat.Name
+                </li>
+            }
+        </ul>
+    </div>
+
+    <!-- Toggle Button -->
+    <button class="sidebar-toggle" @onclick="ToggleSidebar">☰</button>
+
+    <!-- Main Content -->
+    <div class="content @(isSidebarOpen ? "with-sidebar" : "without-sidebar")">
+        <!-- Header -->
+        <div class="header">
+            <h4>@Title</h4>
+        </div>
+
+        <!-- Page Content -->
+        <div class="page-content">
+            @Body
+        </div>
+    </div>
+</div>
+
+<style>
+    /* General Layout */
+    .main-layout {
+        display: flex;
+        height: 100vh;
+        background-color: #1f1f1f; 
+        color: white;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 260px;
+        background-color: #171717; 
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+        overflow-y: auto;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .sidebar.closed {
+            transform: translateX(-260px);
+        }
+
+    .chat-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .new-chat {
+        padding: 10px;
+        background-color: #1f1f1f; 
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: left;
+        font-size: 14px;
+        margin-bottom: 5px;
+        margin-top: 40px;
+    }
+
+        .new-chat:hover {
+            background-color: #2a2a2a; 
+        }
+
+    .chat-item {
+        padding: 10px;
+        background-color: #1f1f1f; 
+        border-radius: 5px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        color: white;
+        font-size: 14px;
+    }
+
+        .chat-item:hover {
+            background-color: #2a2a2a;
+        }
+
+    /* Sidebar Toggle Button */
+    .sidebar-toggle {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1000;
+        font-size: 24px;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    /* Content Area */
+    .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transition: margin-left 0.3s ease-in-out;
+    }
+
+    .with-sidebar {
+        margin-left: 60px;
+    }
+
+    .without-sidebar {
+        position: center;
+        margin-left: -200px;    
+    }
+
+    .header {
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    /* Page Content */
+    .page-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        background-color: #1f1f1f; 
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 640px) {
+        .sidebar
+
+    {
+        transform: translateX(-260px); 
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    }
+</style>
+
+@code {
+    private bool isSidebarOpen = true; 
+    private string Title = "Jarvis"; 
+    private List<ChatSession> chatSessions = new() { new ChatSession { Name = "Chat 1" } }; // Chat sessions
+
+    private void ToggleSidebar()
+    {
+        isSidebarOpen = !isSidebarOpen;
+    }
+
+    private void CreateNewChat()
+    {
+        string newChatName = $"Chat {chatSessions.Count + 1}";
+        chatSessions.Add(new ChatSession { Name = newChatName });
+    }
+
+    private void LoadChat(ChatSession chat)
+    {
+        Title = chat.Name;
+    }
+
+    private class ChatSession
+    {
+        public string Name { get; set; } = string.Empty;
+    }
+}

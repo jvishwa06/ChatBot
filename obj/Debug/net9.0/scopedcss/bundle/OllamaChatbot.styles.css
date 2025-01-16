@@ -1,0 +1,112 @@
+/* /Layout/MainLayout.razor.rz.scp.css */
+/* General Layout */
+.page[b-k04nldldwn] {
+    position: relative;
+    display: flex;
+    height: 100vh;
+    background-color: #202123; /* Dark grey background for the entire layout */
+    color: white;
+}
+
+/* Sidebar (nav bar) */
+.sidebar[b-k04nldldwn] {
+    width: 260px;
+    background-color: #3a3a3a; /* Grey color for the sidebar */
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 10px;
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+    .sidebar.closed[b-k04nldldwn] {
+        transform: translateX(-260px);
+    }
+
+.sidebar-header[b-k04nldldwn] {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.sidebar-options[b-k04nldldwn] {
+    margin-bottom: 15px;
+}
+
+.new-chat[b-k04nldldwn] {
+    padding: 10px;
+    background-color: #525252;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+}
+
+    .new-chat:hover[b-k04nldldwn] {
+        background-color: #5c5c5c;
+    }
+
+.chat-list[b-k04nldldwn] {
+    list-style: none;
+    padding: 0;
+}
+
+.chat-item[b-k04nldldwn] {
+    padding: 10px;
+    background-color: #4a4a4a;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    color: #e4e4e4;
+}
+
+    .chat-item:hover[b-k04nldldwn] {
+        background-color: #525252;
+    }
+
+/* Content Area */
+.content[b-k04nldldwn] {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header[b-k04nldldwn] {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #343541; /* Darker header */
+    border-bottom: 1px solid #40414a;
+}
+
+.sidebar-toggle[b-k04nldldwn] {
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+/* Page Content */
+.page-content[b-k04nldldwn] {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #202123;
+}
+
+/* Responsive Design */
+@media (max-width: 640.98px) {
+    .sidebar[b-k04nldldwn] {
+        transform: translateX(-260px); /* Hide sidebar by default on smaller screens */
+    }
+
+        .sidebar.open[b-k04nldldwn] {
+            transform: translateX(0);
+        }
+}
